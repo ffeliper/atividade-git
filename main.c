@@ -6,6 +6,7 @@ void exibir_menu(void) {
     printf("\n=== CONTROLE DE ESTOQUE ===\n");
     printf("1 - Listar produtos\n");
     printf("2 - Exibir valor total em estoque\n");
+    printf("3 - Exibir valor total com desconto\n");
     printf("0 - Sair\n");
     printf("Escolha uma opcao: ");
 }
@@ -16,6 +17,10 @@ void listar_produtos(Produto lista[], int total) {
         // BUG: esqueceram de imprimir o ID e a quebra de linha está inadequada
         printf("Nome: %s | Preco: R$ %.2f | Qtd: %d", lista[i].nome, lista[i].preco, lista[i].quantidade);
     }
+}
+
+float aplicar_desconto(float total) {
+    return total * (1 - TAXA_DESCONTO);
 }
 
 float calcular_total(Produto lista[], int total) {
@@ -54,6 +59,9 @@ int main(void) {
                 break;
             case 2:
                 printf("\nTotal em estoque: R$ %.2f\n", calcular_total(estoque, total_produtos));
+                break;
+            case 3:
+                printf("\nTotal com desconto: R$ %.2f\n", aplicar_desconto(calcular_total(estoque, total_produtos)));
                 break;
             case 0:
                 printf("\nEncerrando o programa...\n");
