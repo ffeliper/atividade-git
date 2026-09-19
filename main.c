@@ -7,6 +7,7 @@ void exibir_menu(void) {
     printf("1 - Listar produtos\n");
     printf("2 - Exibir valor total em estoque\n");
     printf("3 - Exibir valor total com desconto\n");
+    printf("4 - Exibir valor total com juros\n");
     printf("0 - Sair\n");
     printf("Escolha uma opcao: ");
 }
@@ -21,6 +22,10 @@ void listar_produtos(Produto lista[], int total) {
 
 float aplicar_desconto(float total) {
     return total * (1 - TAXA_DESCONTO);
+}
+
+float aplicar_juros(float total) {
+    return total * (1 + TAXA_JUROS);
 }
 
 float calcular_total(Produto lista[], int total) {
@@ -62,6 +67,9 @@ int main(void) {
                 break;
             case 3:
                 printf("\nTotal com desconto: R$ %.2f\n", aplicar_desconto(calcular_total(estoque, total_produtos)));
+                break;
+            case 4:
+                printf("\nTotal com juros: R$ %.2f\n", aplicar_juros(calcular_total(estoque, total_produtos)));
                 break;
             case 0:
                 printf("\nEncerrando o programa...\n");
