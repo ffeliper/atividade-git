@@ -6,14 +6,18 @@ void exibir_menu(void) {
     printf("\n=== CONTROLE DE ESTOQUE ===\n");
     printf("1 - Listar produtos\n");
     printf("2 - Exibir valor total em estoque\n");
+    printf("3 - Exibir valor total com desconto\n");
+    printf("4 - Exibir valor total com juros\n");
     printf("0 - Sair\n");
     printf("Escolha uma opcao: ");
 }
 
 void listar_produtos(Produto lista[], int total) {
+
     printf("\n--- Produtos Cadastrados ---\n");
 
     for (int i = 0; i < total; i++) {
+
         printf("ID: %d | Codigo de barras: %s | Categoria: %s | Nome: %s | Preco: R$ %.2f | Qtd: %d\n",
                lista[i].id,
                lista[i].codigo_barras,
@@ -24,18 +28,29 @@ void listar_produtos(Produto lista[], int total) {
     }
 }
 
+float aplicar_desconto(float total) {
+    return total * (1 - TAXA_DESCONTO);
+}
+
+float aplicar_juros(float total) {
+    return total * (1 + TAXA_JUROS);
+}
+
 float calcular_total(Produto lista[], int total) {
+
     float soma = 0.0;
 
     for (int i = 0; i < total; i++) {
-        soma += lista[i].preco;
+        soma += lista[i].preco * lista[i].quantidade;
     }
 
     return soma;
 }
 
 int main(void) {
+
     Produto estoque[MAX_ITENS];
+
     int total_produtos = 2;
 
     estoque[0].id = 1;
@@ -55,6 +70,7 @@ int main(void) {
     int opcao = -1;
 
     while (opcao != 0) {
+
         exibir_menu();
 
         if (scanf("%d", &opcao) != 1) {
@@ -62,6 +78,7 @@ int main(void) {
         }
 
         switch (opcao) {
+
             case 1:
                 listar_produtos(estoque, total_produtos);
                 break;
@@ -69,6 +86,20 @@ int main(void) {
             case 2:
                 printf("\nTotal em estoque: R$ %.2f\n",
                        calcular_total(estoque, total_produtos));
+                break;
+
+            case 3:
+                printf("\nTotal com desconto: R$ %.2f\n",
+                       aplicar_desconto(
+                           calcular_total(estoque, total_produtos)
+                       ));
+                break;
+
+            case 4:
+                printf("\nTotal com juros: R$ %.2f\n",
+                       aplicar_juros(
+                           calcular_total(estoque, total_produtos)
+                       ));
                 break;
 
             case 0:
