@@ -31,7 +31,9 @@ float aplicar_juros(float total) {
 float calcular_total(Produto lista[], int total) {
     float soma = 0.0;
     for (int i = 0; i < total; i++) {
-        soma += lista[i].preco * lista[i].quantidade;
+        soma += lista[i].preco * lista[i].quantidade; 
+        // calculo dos preços agora multiplicando o preço
+        // pela quantidade de produtos no estoque
     }
     return soma;
 }
